@@ -133,46 +133,31 @@
     <script>
         const content = document.getElementById('mainContent');
         const hiddenMsg = document.getElementById('hiddenMsg');
-        let isSelected = false;
+        let clickCount = 0;
+        let clickTimer;
 
-        document.addEventListener('selectionchange', function() {
-            const selection = window.getSelection();
-            const selectedText = selection.toString();
+        // Triple click to reveal the message
+        document.addEventListener('click', function() {
+            clickCount++;
             
-            // Check if the selected text covers most of the content
-            if (selectedText.length > 200) {
-                if (!isSelected) {
-                    isSelected = true;
-                    content.style.display = 'none';
-                    hiddenMsg.style.display = 'block';
-                }
-            } else {
-                if (isSelected) {
-                    isSelected = false;
-                    content.style.display = 'block';
-                    hiddenMsg.style.display = 'none';
-                }
+            // Reset counter after 500ms
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 500);
+
+            // Triple click detected
+            if (clickCount === 3) {
+                clickCount = 0;
+                content.style.display = 'none';
+                hiddenMsg.style.display = 'block';
             }
         });
 
-        // Also handle mouseup to catch selection
-        document.addEventListener('mouseup', function() {
-            const selection = window.getSelection();
-            const selectedText = selection.toString();
-            
-            if (selectedText.length > 200) {
-                if (!isSelected) {
-                    isSelected = true;
-                    content.style.display = 'none';
-                    hiddenMsg.style.display = 'block';
-                }
-            } else {
-                if (isSelected) {
-                    isSelected = false;
-                    content.style.display = 'block';
-                    hiddenMsg.style.display = 'none';
-                }
-            }
+        // Click the hidden message to go back
+        hiddenMsg.addEventListener('click', function() {
+            content.style.display = 'block';
+            hiddenMsg.style.display = 'none';
         });
     </script>
 </body>
