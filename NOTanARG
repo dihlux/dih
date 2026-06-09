@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is an ARG?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            padding: 40px;
+            line-height: 1.8;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        p {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .content {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .hidden-message {
+            display: none;
+            color: #ff4757;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>What is an ARG?</h1>
+        
+        <div class="content" id="mainContent">
+            <p>An <strong>ARG (Alternate Reality Game)</strong> is an interactive narrative that blurs the line between fiction and reality. Players are immersed in a story that unfolds across multiple platforms and media, often without being told explicitly that it's a game.</p>
+
+            <h2>Key Characteristics</h2>
+            <ul>
+                <li><strong>Immersive Storytelling:</strong> The story feels real and is presented as if it's actually happening</li>
+                <li><strong>Multi-platform:</strong> Clues and story elements appear across websites, social media, emails, phone calls, and more</li>
+                <li><strong>Community-driven:</strong> Players work together to solve puzzles, decode messages, and uncover the narrative</li>
+                <li><strong>Real-time progression:</strong> The story evolves over time, sometimes over weeks or months</li>
+                <li><strong>Interactivity:</strong> Players can influence the story through their actions and discoveries</li>
+            </ul>
+
+            <h2>How It Works</h2>
+            <p>ARG creators plant cryptic clues, hidden messages, and puzzles for players to discover. These might be:</p>
+            <ul>
+                <li>Encoded text or images</li>
+                <li>Hidden websites or Easter eggs</li>
+                <li>Mysterious phone calls or emails</li>
+                <li>Steganography or cipher puzzles</li>
+                <li>Coordinate-based clues pointing to real-world locations</li>
+            </ul>
+
+            <div class="highlight">
+                <p><strong>Famous ARGs:</strong> The Beast (2001), Lonelygirl15 (2006), Marble Hornets (2009), and Take This Lollipop (2011) are considered landmark ARGs that defined the genre.</p>
+            </div>
+
+            <h2>Why People Love ARGs</h2>
+            <p>ARGs offer a unique blend of mystery, community, and adventure. They reward curiosity, critical thinking, and collaboration. Players feel like they're part of something bigger than themselves—uncovering a true mystery.</p>
+        </div>
+
+        <div class="hidden-message" id="hiddenMsg">
+            solve it yourself. I am not an ARG. I am a person. You will not know me. You do not know me.
+        </div>
+    </div>
+
+    <script>
+        const content = document.getElementById('mainContent');
+        const hiddenMsg = document.getElementById('hiddenMsg');
+        let isSelected = false;
+
+        document.addEventListener('selectionchange', function() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString();
+            
+            // Check if the selected text covers most of the content
+            if (selectedText.length > 200) {
+                if (!isSelected) {
+                    isSelected = true;
+                    content.style.display = 'none';
+                    hiddenMsg.style.display = 'block';
+                }
+            } else {
+                if (isSelected) {
+                    isSelected = false;
+                    content.style.display = 'block';
+                    hiddenMsg.style.display = 'none';
+                }
+            }
+        });
+
+        // Also handle mouseup to catch selection
+        document.addEventListener('mouseup', function() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString();
+            
+            if (selectedText.length > 200) {
+                if (!isSelected) {
+                    isSelected = true;
+                    content.style.display = 'none';
+                    hiddenMsg.style.display = 'block';
+                }
+            } else {
+                if (isSelected) {
+                    isSelected = false;
+                    content.style.display = 'block';
+                    hiddenMsg.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
